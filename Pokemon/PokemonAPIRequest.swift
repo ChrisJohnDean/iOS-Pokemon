@@ -19,14 +19,43 @@ enum PokemonAPIError: Error {
 }
 
 class PokemonAPIRequest {
-  
-  var url: URL?
+
   var networker: NetworkerType
   
   init(networker: NetworkerType) {
     self.networker = networker
   }
+}
+
+/// Methods that should be called by other classes
+extension PokemonAPIRequest {
   
+  func getAllPokemons(completionHandler: @escaping ([Pokemon]?, Error?) -> Void) {
+    guard let url = buildURL(endpoint: "pokemon") else {
+      completionHandler(nil, PokemonAPIError.badURL)
+      return
+    }
+    
+    self.networker.requestData(with: url) { (data, urlRequest, error) in
+      
+      var json: [String: Any] = [:]
+      var result: [Pokemon] = []
+      do {
+        json = try self.jsonObject(fromData: data, response: urlRequest, error: error)
+        result = try self.pokemons(fromJSON: json)
+      } catch let error {
+        completionHandler(nil, error)
+        return
+      }
+      
+      completionHandler(result, nil)
+    }
+  }
+  
+}
+
+/// URL
+extension PokemonAPIRequest {
   func buildURL(endpoint: String) -> URL? {
     var componenets = URLComponents()
     componenets.scheme = "https"
@@ -38,37 +67,30 @@ class PokemonAPIRequest {
     
     return componentsURL
   }
+}
+
+/// JSON Parsing
+extension PokemonAPIRequest {
   
-  func getAllPokemons(completionHandler: @escaping ([Pokemon]?, Error?) -> Void) {
-    guard let url = buildURL(endpoint: "pokemon") else {
-      completionHandler(nil, PokemonAPIError.badURL)
-      return
+  func jsonObject(fromData data: Data) throws -> [String: Any] {
+    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+    
+    guard let results = jsonObject as? [String: Any] else {
+      throw PokemonAPIError.invalidJSON
     }
     
-    self.networker.requestData(with: url) { (data, urlRequest, error) in
-      
-      var json: [String: Any] = [:]
-      do {
-        json = try self.jsonObject(fromData: data, response: urlRequest, error: error)
-      } catch let error {
-        completionHandler(nil, error)
-        return
-      }
-      
-      completionHandler(self.pokemons(fromJSON: json), nil)
-    }
+    return results
   }
   
-  func pokemons(fromJSON json: [String: Any]) -> [Pokemon] {
+  func pokemons(fromJSON json: [String: Any]) throws -> [Pokemon] {
     guard let results = json["results"] as? [[String: String]] else {
-      print("Data Error")
-      return []
+      throw PokemonAPIError.invalidJSON
     }
     
     var pokemons: [Pokemon] = []
     for result in results {
       guard let name = result["name"], let url = result["url"] else {
-        continue
+        throw PokemonAPIError.invalidJSON
       }
       let pokemon = Pokemon(name: name, url: url)
       pokemons.append(pokemon)
@@ -86,16 +108,6 @@ class PokemonAPIRequest {
     }
     
     return try jsonObject(fromData: data)
-  }
-  
-  func jsonObject(fromData data: Data) throws -> [String: Any] {
-    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-    
-    guard let results = jsonObject as? [String: Any] else {
-      throw PokemonAPIError.invalidJSON
-    }
-    
-    return results
   }
   
 }

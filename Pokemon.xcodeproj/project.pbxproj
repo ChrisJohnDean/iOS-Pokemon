@@ -15,6 +15,9 @@
 		22E86A48203D2AFE00651A02 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E86A47203D2AFE00651A02 /* Pokemon.swift */; };
 		22E86A4A203DE9AD00651A02 /* PokemonAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E86A49203DE9AD00651A02 /* PokemonAPIRequest.swift */; };
 		22E86A4C203DEA3E00651A02 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E86A4B203DEA3E00651A02 /* NetworkManager.swift */; };
+		897A7D3D2064671A007F596C /* ReturnValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897A7D3C2064671A007F596C /* ReturnValueTests.swift */; };
+		897A7D3F20647A94007F596C /* MockingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897A7D3E20647A94007F596C /* MockingTests.swift */; };
+		897A7D41206481A0007F596C /* pokemon.json in Resources */ = {isa = PBXBuildFile; fileRef = 897A7D40206481A0007F596C /* pokemon.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,10 @@
 		22E86A47203D2AFE00651A02 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		22E86A49203DE9AD00651A02 /* PokemonAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAPIRequest.swift; sourceTree = "<group>"; };
 		22E86A4B203DEA3E00651A02 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		897A7D3B20646719007F596C /* PokemonTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PokemonTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		897A7D3C2064671A007F596C /* ReturnValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValueTests.swift; sourceTree = "<group>"; };
+		897A7D3E20647A94007F596C /* MockingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingTests.swift; sourceTree = "<group>"; };
+		897A7D40206481A0007F596C /* pokemon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pokemon.json; path = PokemonTests/pokemon.json; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +104,11 @@
 		22E86A3B203D28BD00651A02 /* PokemonTests */ = {
 			isa = PBXGroup;
 			children = (
+				897A7D40206481A0007F596C /* pokemon.json */,
 				22E86A3E203D28BD00651A02 /* Info.plist */,
+				897A7D3C2064671A007F596C /* ReturnValueTests.swift */,
+				897A7D3B20646719007F596C /* PokemonTests-Bridging-Header.h */,
+				897A7D3E20647A94007F596C /* MockingTests.swift */,
 			);
 			path = PokemonTests;
 			sourceTree = "<group>";
@@ -156,6 +167,7 @@
 					};
 					22E86A37203D28BD00651A02 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 22E86A23203D28BD00651A02;
 					};
@@ -186,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E86A32203D28BD00651A02 /* LaunchScreen.storyboard in Resources */,
+				897A7D41206481A0007F596C /* pokemon.json in Resources */,
 				22E86A2F203D28BD00651A02 /* Assets.xcassets in Resources */,
 				22E86A2D203D28BD00651A02 /* Main.storyboard in Resources */,
 			);
@@ -217,6 +230,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				897A7D3F20647A94007F596C /* MockingTests.swift in Sources */,
+				897A7D3D2064671A007F596C /* ReturnValueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95BWZVVTRH;
 				INFOPLIST_FILE = Pokemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lighthouse-labs.Pokemon";
@@ -376,6 +392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95BWZVVTRH;
 				INFOPLIST_FILE = Pokemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lighthouse-labs.Pokemon";
@@ -390,11 +407,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95BWZVVTRH;
 				INFOPLIST_FILE = PokemonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lighthouse-labs.PokemonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PokemonTests/PokemonTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pokemon.app/Pokemon";
@@ -406,11 +427,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95BWZVVTRH;
 				INFOPLIST_FILE = PokemonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lighthouse-labs.PokemonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PokemonTests/PokemonTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pokemon.app/Pokemon";

@@ -51,7 +51,6 @@ extension PokemonAPIRequest {
       completionHandler(result, nil)
     }
   }
-  
 }
 
 /// URL
@@ -63,7 +62,7 @@ extension PokemonAPIRequest {
     var componentsURL = componenets.url
     componentsURL = componentsURL?.appendingPathComponent("api")
     componentsURL = componentsURL?.appendingPathComponent("v2")
-    componentsURL = componentsURL?.appendingPathComponent(endpoint)
+    componentsURL = componentsURL?.appendingPathComponent(endpoint) //"pokemon"
     
     return componentsURL
   }
